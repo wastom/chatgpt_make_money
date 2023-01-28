@@ -1,5 +1,6 @@
 # chatgpt_make_money
-If you want to make money online, then this is the Best way.  Build a tool website and make money by displaying google ads. 
+Here are the questions asked in chatgpt
+
 # 1question
 Code for Python, Flask server.
 Add route "/" with GET method and return index.html
