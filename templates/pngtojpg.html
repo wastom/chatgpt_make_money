@@ -1,0 +1,76 @@
+<html>
+  <head>
+    <title>PNG to JPG Converter</title>
+      <style>
+      body {
+          background-color: #F0F0F0;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          height: 100vh;}
+
+      form {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          background-color: #f2f2f2;
+          padding: 20px;}
+
+      input[type="file"] {
+          margin: 10px 0;
+          padding: 12px;
+          border: 1px solid #ccc;
+          border-radius: 4px;}
+
+      button[type="submit"] {
+          margin: 10px 0;
+          padding: 12px 20px;
+          background-color: #4CAF50;
+          color: white;
+          border: none;
+          border-radius: 4px;
+          cursor: pointer;}
+
+      button[type="submit"]:hover {
+          background-color: #3e8e41;}
+    </style>
+    <script>
+        function convertToJPG() {
+            var fileInput = document.getElementById("file-input");
+            var file = fileInput.files[0];
+            var fileSize = file.size/1024/1024;
+            var fileType = file.type;
+            if (file) {
+                if (fileType === "image/png" && fileSize < 5) {
+                    var formData = new FormData();
+                    formData.append("image", file);
+                    var xhr = new XMLHttpRequest();
+                    xhr.open("POST", "/api/pngtojpg", true);
+                    xhr.onreadystatechange = function () {
+                      if (xhr.readyState === 4 && xhr.status === 200) {
+                        alert("Image converted to JPG successfully!");
+                      } else if (xhr.status === 400) {
+                        alert("Error in converting image!");
+                      }
+                    };
+                    xhr.send(formData);
+                } else {
+                    alert("Please select a JPG image less than 5MB in size");
+                }
+            } else {
+                alert("Please select an image");
+            }
+        }
+    </script>
+  </head>
+  <body>
+    <div>
+        <h1>PNG to JPG Converter</h1>
+        <form>
+            <input type="file" id="file-input" accept="image/png">
+            <br>
+            <button type="button" onclick="convertToJPG()">Convert to JPG</button>
+        </form>
+    </div>
+  </body>
+</html>
